@@ -11,7 +11,9 @@ const UserForm = () => {
 
   const handleSubmit = async() => {
     console.log(`${BASE_URL}/api/users`);
-        
+    console.log(typeof name)
+    console.log(typeof email)
+    console.log(typeof password)
     try {
         const res = await axios.post(`${BASE_URL}/api/users`, { name, email,password });
         Alert.alert("Success", `Name: ${name}\nEmail: ${email}`);
