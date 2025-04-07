@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { View, Alert, StyleSheet } from "react-native";
-import { TextInput, Button, Text } from "react-native-paper";
-import { BASE_URL } from '../../constants/constants';
-import axios from "axios";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { TextInput, Button, Text } from 'react-native-paper';
+import { saveData } from '../AsyncStorageComponent/AsyncStorageComponent';
+
 const UserForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password,setPassword]=useState("")
-  
+  const [password,setPassword] = useState("");
 
   const handleSubmit = async() => {
-    console.log(`${BASE_URL}/api/users`);
-    console.log(typeof name)
-    console.log(typeof email)
-    console.log(typeof password)
     try {
-        const res = await axios.post(`${BASE_URL}/api/users`, { name, email,password });
-        Alert.alert("Success", `Name: ${name}\nEmail: ${email}`);
-        console.log('afgfd',res);
+        saveData({name,email,password});
+        console.log('User data saved to AsyncStorage!');
       } catch (error) {
         console.error('Error submitting form:', error);
       }
@@ -27,7 +21,6 @@ const UserForm = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>User Form</Text>
-      
       <TextInput
         label="Name"
         value={name}
@@ -44,7 +37,7 @@ const UserForm = () => {
         mode="outlined"
         style={styles.input}
       />
-     
+
      <TextInput
     label="Password"
     value={password}
